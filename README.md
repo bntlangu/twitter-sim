@@ -1,21 +1,20 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+**Twitter-Sim**
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+This repository is the home of Twitter-Sim - a lightweight tool for simulating the behaviour of twitter for the purpose of demonstrating software engineering ability.
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+*Please note that any activity enacted on this simulator will not affect reall Twitter accounts.*
 
 ---
 
-## Edit a file
+## Register user(s)
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+Start by running the user registration simulation "register_users.exe". Using the input file "data/register.txt" this utility will run through the file line by line and attempt to register the users listed in the input file with the twitter-sim application.
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+1. In a command **Terminal**, where golang is installed, type:
+**go build register_users -o register_users.exe**
+2. Run the application executable with the input file specified as an argument:
+**register_users ./data/register.txt**
+
 
 ---
 

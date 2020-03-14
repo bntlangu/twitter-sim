@@ -1,0 +1,14 @@
+1. As a user, I want to register a new account with the application so that I 
+can tweet and follow other users.
+
+2. As a user, I want to tweet so I can share what I'm thinking about with other
+users who follow me.
+
+3. As a user I want to comment on what a user, whom I follow, tweets so that I
+can respond to others' tweets.
+
+4. As a user, I want to follow other users so that I can see what they are 
+tweeting.
+
+5. As a user I want my feed to be displayed so that I can see a timeline of all 
+my tweets and those of the users that I follow.
