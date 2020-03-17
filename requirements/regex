@@ -1,0 +1,41 @@
+Users
+=====
+Ward
+Alan
+Martin
+
+start with a word of at least 2 characters and most 24: ^\w{2,24}
+
+REGEX: ^(\w{2,24})
+
+Tweets
+======
+Alan> If you have a procedure with 10 parameters, you probably missed some.
+Ward> There are only two hard things in Computer Science: cache invalidation, naming things and off-by-1 errors.
+Alan> Random numbers should not be generated with a method chosen at random.
+
+start with a word of at least 2 characters and most 24: ^\w{2,24}
+separated by the "greater than" character and a space: >\s
+followed by any character except line break: .+
+
+REGEX: 
+first call: ^(\w{2,24})(>\s)
+second call: (.+)
+
+Follows
+=======
+Ward follows Alan
+Alan follows Martin
+Ward follows Martin, Alan
+
+start with a word of at least 2 characters and most 24: ^(\w{2,24})
+separated by space, the word "follows" and space again: (\sfollows\s)
+followed by at least one repetition of word and comma: ((\w{2,24})(?:,\s)?)+
+
+REGEX: 
+first call: ^(\w{2,24})(\sfollows\s)
+second call: (\w{2,24})(?:,\s)?
+
+Note: here we will match using the first two regex expressions to identify the type
+action being described. Knowing the action type we can then call the substring matcher
+the remainder of the input string applying the 3rd regex expression for the task.

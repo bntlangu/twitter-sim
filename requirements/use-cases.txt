@@ -1,11 +1,26 @@
+Twitter-Sim API use-cases
+-------------------------
+
 1. As a user, I want to register a new account with the application so that I 
 can tweet and follow other users.
+
+    1.1 Define a user model.
+    1.2 Store users.
+    1.3 Retrieve users.
 
 2. As a user, I want to tweet so I can share what I'm thinking about with other
 users who follow me.
 
+    2.1 Define tweet model
+    2.2 Store tweets to users' list of tweets.
+    2.3 Retrieve timeline of tweets from users I follow including me.
+    (note: this means by default I follow myself)
+
 3. As a user I want to comment on what a user, whom I follow, tweets so that I
 can respond to others' tweets.
+
+    3.1 Define list of users followed
+    3.2 Return list of users followed
 
 4. As a user, I want to follow other users so that I can see what they are 
 tweeting.
