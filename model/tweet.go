@@ -4,12 +4,15 @@ import "github.com/google/uuid"
 
 // Tweet is the data struct for housing a tweet by a user
 type Tweet struct {
-	*Model
+	Model
 	ID       string
 	Text     string
 	User     string
 	Comments []Comment
 }
+
+// TweetList is a data struct for housing a list of tweets
+type TweetList map[string]Tweet
 
 // Comment is a data struct for housing comments made on tweets
 type Comment struct {

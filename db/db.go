@@ -7,14 +7,16 @@ import (
 
 // RAMdb is the database object, which is comprised of a map of users.
 type RAMdb struct {
-	users map[string]model.User
+	users model.UserList
 }
 
-func (db *RAMdb) init() {
-	db.users = make(map[string]model.User)
+// Initialise prepares the map to use for storing users.
+func (db *RAMdb) Initialise() {
+	db.users = make(model.UserList)
 }
 
-// Add a user
+// AddUser inserts a new user into the DB if it doesn't already exist.
+// Returns err otherwise.
 func (db *RAMdb) AddUser(username string) error {
 	// Check if user exists
 	if user := db.LookupUser(username); user != nil {
@@ -25,7 +27,7 @@ func (db *RAMdb) AddUser(username string) error {
 
 	newUser.Model.SetTimestamp()
 	newUser.User = username
-	newUser.Tweets = make(map[string]model.Tweet)
+	newUser.Tweets = make(model.TweetList)
 	// Save the new user
 	db.users[username] = newUser
 	return nil
