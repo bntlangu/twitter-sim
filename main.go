@@ -13,11 +13,9 @@ func main() {
 		log.Fatalf("Failed to open file: %s", err)
 	}
 
-	// Compile regex expressions
-	registerRE := `^\w{2,24}`
-	err = ls.ProcessLines(registerRE)
+	err = ls.ProcessLines(inout.REGISTER)
 	if err != nil {
-		log.Fatalf("Failed to process lines using specified regexp: %s", registerRE)
+		log.Fatalf("Failed to process lines using REGISTER")
 	}
 
 	// Read User registration file
@@ -25,25 +23,18 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to open file: %s", err)
 	}
-
-	// Compile regex expressions
-	tweetRE := `^\w{2,24}>\s`
-	err = ls.ProcessLines(tweetRE)
+	err = ls.ProcessLines(inout.TWEET)
 	if err != nil {
-		log.Fatalf("Failed to process lines using specified regexp: %s", tweetRE)
+		log.Fatalf("Failed to process lines using specified TWEET")
 	}
-
 	// Read User registration file
 	err = ls.ReadLines("data/user.txt")
 	if err != nil {
 		log.Fatalf("Failed to open file: %s", err)
 	}
-
-	// Compile follow regex expressions
-	followRE := `^\w{2,24}\sfollows\s`
-	err = ls.ProcessLines(followRE)
+	err = ls.ProcessLines(inout.FOLLOW)
 	if err != nil {
-		log.Fatalf("Failed to process lines using specified regexp: %s", followRE)
+		log.Fatalf("Failed to process lines using specified FOLLOW")
 	}
 
 }

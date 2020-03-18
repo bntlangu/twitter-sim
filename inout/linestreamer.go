@@ -15,6 +15,13 @@ type LineStreamer struct {
 	Lines    []string
 }
 
+// REGIST, TWEET, and FOLLOW are constants enumerating input stream types
+const (
+	REGISTER = iota
+	TWEET
+	FOLLOW
+)
+
 // ReadLines reads an input file line by line and returns
 // the corresponding list of strings.
 func (ls *LineStreamer) ReadLines(filename string) error {
@@ -35,21 +42,81 @@ func (ls *LineStreamer) ReadLines(filename string) error {
 	return nil
 }
 
+func processRegister(line string) (string, error) {
+
+	// Compile regex expressions
+	registerRE := regexp.MustCompile(`^\w{2,24}`)
+	// Process line to determine what action must be taken
+	regexMatch := registerRE.FindString(line)
+
+	if regexMatch != "" {
+		fmt.Println(regexMatch)
+		username, err := api.RegisterUser(regexMatch)
+		if err != nil {
+			return "", errors.New(err.Error())
+		}
+
+		return username, nil
+	}
+
+	return "", errors.New("Failed to process user registeration for " + line)
+}
+
+func processTweet(line string) (string, error) {
+
+	// Compile regex expressions
+	tweetRE := regexp.MustCompile(`^\w{2,24}>\s`)
+	// Process line to determine what action must be taken
+	regexMatch := tweetRE.FindString(line)
+
+	if regexMatch != "" {
+		fmt.Println(regexMatch)
+		username, err := api.RegisterUser(regexMatch)
+		if err != nil {
+			return "", errors.New(err.Error())
+		}
+
+		return username, nil
+	}
+
+	return "", errors.New("Failed to process user registeration for " + line)
+}
+
+func processFollow(line string) (string, error) {
+
+	// Compile regex expressions
+	followRE := regexp.MustCompile(`^\w{2,24}\sfollows\s`)
+	// Process line to determine what action must be taken
+	regexMatch := followRE.FindString(line)
+
+	if regexMatch != "" {
+		fmt.Println(regexMatch)
+		username, err := api.RegisterUser(regexMatch)
+		if err != nil {
+			return "", errors.New(err.Error())
+		}
+
+		return username, nil
+	}
+
+	return "", errors.New("Failed to process user registeration for " + line)
+}
+
 // ProcessLines parses the lines stored in the LineStreamer
 // and attempts to process them according to their content
 // using regex expressions to match each line to an appropriate function call.
-func (ls *LineStreamer) ProcessLines(re string) error {
+func (ls *LineStreamer) ProcessLines(inputType int) (err error) {
 	for _, line := range ls.Lines {
-		regexRE := regexp.MustCompile(re)
-
-		// Process line to determine what action must be taken
-		regexMatch := regexRE.FindString(line)
-
-		if regexMatch != "" {
-			fmt.Println(regexMatch)
-			if _, err := api.RegisterUser(regexMatch); err != nil {
-				return errors.New(err.Error())
-			}
+		switch inputType {
+		case REGISTER:
+			_, err = processRegister(line)
+			break
+		case TWEET:
+			_, err = processTweet(line)
+			break
+		case FOLLOW:
+			_, err = processFollow(line)
+			break
 		}
 	}
 
