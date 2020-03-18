@@ -66,7 +66,7 @@ func GetFeed(username string) ([]model.Tweet, error) {
 		// Go through the list of tweets corresponding to the followed user.
 		for _, twt := range followedUser.Tweets {
 			feed = append(feed, twt)
-			//fmt.Sprintf("\t@%s: %s", followedUser.User, twt)
+			//fmt.Printf("\t@%s: %s", followedUser.User, twt)
 		}
 	}
 
@@ -85,6 +85,6 @@ func printFeed(username string, feed []model.Tweet) {
 	// Go through the list of sorted tweets and output
 	for _, twt := range feed {
 
-		fmt.Printf("\t@%s: %s\n", twt.User, twt.Text)
+		fmt.Printf("\t@%s: %s\n", username, twt.Text)
 	}
 }

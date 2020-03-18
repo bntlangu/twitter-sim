@@ -119,7 +119,7 @@ func (db *RAMdb) FollowUser(actor string, target string) (int, error) {
 
 	usr.Following = append(usr.Following, target)
 	numFollowed := len(usr.Following)
-	fmt.Printf("%s follows %s; Now following %d users.\n", actor, target, numFollowed)
+	fmt.Printf("%s follows %s\n", actor, target)
 
 	return numFollowed, nil
 }

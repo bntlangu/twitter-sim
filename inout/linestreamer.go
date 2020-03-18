@@ -3,7 +3,6 @@ package inout
 import (
 	"bufio"
 	"errors"
-	"fmt"
 	"os"
 	"regexp"
 	"twitter-sim/api"
@@ -50,7 +49,7 @@ func processRegister(line string) (string, error) {
 	regexMatch := registerRE.FindString(line)
 
 	if regexMatch != "" {
-		fmt.Println(regexMatch)
+		//fmt.Println(regexMatch)
 		username, err := api.RegisterUser(regexMatch)
 		if err != nil {
 			return "", errors.New(err.Error())
@@ -70,7 +69,7 @@ func processTweet(line string) (string, error) {
 	regexMatch := tweetRE.Split(line, -1)
 
 	if len(regexMatch) > 1 {
-		fmt.Println(regexMatch)
+		//fmt.Printf("User: %s; Text: %s\n", regexMatch[0], regexMatch[1])
 		username, err := api.Tweet(regexMatch[0], regexMatch[1])
 		if err != nil {
 			return "", errors.New(err.Error())
@@ -90,7 +89,7 @@ func processFollow(line string) (string, error) {
 	regexMatch := followRE.Split(line, -1)
 
 	if len(regexMatch) > 1 {
-		fmt.Println(regexMatch)
+		//fmt.Println(regexMatch)
 		username, err := api.Follow(regexMatch[0], regexMatch[1])
 		if err != nil {
 			return "", errors.New(err.Error())
