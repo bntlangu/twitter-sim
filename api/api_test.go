@@ -48,11 +48,11 @@ func TestFollow(t *testing.T) {
 		t.Error("Harry failed to follow Tom")
 	}
 
-	if _, err := Tweet("Dick", "Harry"); err != nil {
+	if _, err := Follow("Dick", "Harry"); err != nil {
 		t.Error("Dick failed to follow Harry")
 	}
 
-	if _, err := Tweet("Harry", "Dick"); err != nil {
+	if _, err := Follow("Harry", "Dick"); err != nil {
 		t.Error("Harry failed to follow Dick")
 	}
 
@@ -61,7 +61,8 @@ func TestFollow(t *testing.T) {
 		t.Error(err.Error())
 	}
 	if len(usr.Following) != 3 {
-		t.Error("Incorrect number of users followed returned for Tom. Expected 3")
+		t.Errorf("Incorrect number of users followed returned for %s. Expected %d, got %d",
+			usr.User, 3, len(usr.Following))
 	}
 }
 
