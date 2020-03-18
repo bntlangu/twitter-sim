@@ -65,13 +65,13 @@ func processRegister(line string) (string, error) {
 func processTweet(line string) (string, error) {
 
 	// Compile regex expressions
-	tweetRE := regexp.MustCompile(`^\w{2,24}>\s`)
+	tweetRE := regexp.MustCompile(`>\s`)
 	// Process line to determine what action must be taken
-	regexMatch := tweetRE.FindString(line)
+	regexMatch := tweetRE.Split(line, -1)
 
-	if regexMatch != "" {
+	if len(regexMatch) > 1 {
 		fmt.Println(regexMatch)
-		username, err := api.RegisterUser(regexMatch)
+		username, err := api.Tweet(regexMatch[0], regexMatch[1])
 		if err != nil {
 			return "", errors.New(err.Error())
 		}
@@ -85,13 +85,13 @@ func processTweet(line string) (string, error) {
 func processFollow(line string) (string, error) {
 
 	// Compile regex expressions
-	followRE := regexp.MustCompile(`^\w{2,24}\sfollows\s`)
-	// Process line to determine what action must be taken
-	regexMatch := followRE.FindString(line)
+	followRE := regexp.MustCompile(`\sfollows\s`)
+	// Split according to the expression specified
+	regexMatch := followRE.Split(line, -1)
 
-	if regexMatch != "" {
+	if len(regexMatch) > 1 {
 		fmt.Println(regexMatch)
-		username, err := api.RegisterUser(regexMatch)
+		username, err := api.Follow(regexMatch[0], regexMatch[1])
 		if err != nil {
 			return "", errors.New(err.Error())
 		}
