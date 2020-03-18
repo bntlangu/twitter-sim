@@ -5,10 +5,9 @@ import "github.com/google/uuid"
 // Tweet is the data struct for housing a tweet by a user
 type Tweet struct {
 	Model
-	ID       string
-	Text     string
-	User     string
-	Comments []Comment
+	ID   string
+	Text string
+	User string
 }
 
 // TweetList is a data struct for housing a list of tweets

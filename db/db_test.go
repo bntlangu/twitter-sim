@@ -100,8 +100,9 @@ func TestFollowUser(t *testing.T) {
 		t.Error(err.Error())
 	}
 
-	if numFollowed != 1 {
-		t.Errorf("Expected to be following %d user(s), but found %d", 1, numFollowed)
+	// The first user followed is the actor themselves.
+	if numFollowed != 2 {
+		t.Errorf("Expected to be following %d user(s), but found %d", 2, numFollowed)
 	}
 
 	t.Logf("%s now following %d users", actingUser, numFollowed)

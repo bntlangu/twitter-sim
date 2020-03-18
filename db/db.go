@@ -15,6 +15,11 @@ func (db *RAMdb) Initialise() {
 	db.users = make(model.UserList)
 }
 
+// GetNumUsers returns the number of users on the application
+func (db *RAMdb) GetNumUsers() int {
+	return len(db.users)
+}
+
 // AddUser inserts a new user into the DB if it doesn't already exist.
 // Returns err otherwise.
 func (db *RAMdb) AddUser(username string) error {
@@ -25,7 +30,7 @@ func (db *RAMdb) AddUser(username string) error {
 		newUser.Model.SetTimestamp()
 		newUser.User = username
 		newUser.Tweets = make(model.TweetList)
-		newUser.Following = []string{}
+		newUser.Following = []string{username}
 
 		// Save the new user
 		db.users[username] = newUser
