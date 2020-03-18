@@ -80,4 +80,44 @@ func TestLookupTweet(t *testing.T) {
 
 }
 
+// Add user test
+func TestFollowUser(t *testing.T) {
+	// Setup
+	actingUser := "Follower"
+	targetUser := "Followed"
+
+	if err := DB.AddUser(actingUser); err != nil {
+		t.Error(err.Error())
+	}
+	if err := DB.AddUser(targetUser); err != nil {
+		t.Error(err.Error())
+	}
+
+	// Test positive case
+	numFollowed, err := DB.FollowUser(actingUser, targetUser)
+
+	if err != nil {
+		t.Error(err.Error())
+	}
+
+	if numFollowed != 1 {
+		t.Errorf("Expected to be following %d user(s), but found %d", 1, numFollowed)
+	}
+
+	t.Logf("%s now following %d users", actingUser, numFollowed)
+
+	// Test negative case
+	targetUser = "WrongUser"
+	numFollowed, err = DB.FollowUser(actingUser, targetUser)
+
+	if err != nil {
+		t.Log(err.Error())
+
+	} else {
+		t.Errorf("Expected %s following %s to fail since %s does not exist.",
+			actingUser, targetUser, targetUser)
+	}
+
+}
+
 // Add a comment to a tweet test

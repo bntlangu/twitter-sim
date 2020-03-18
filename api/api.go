@@ -2,46 +2,35 @@ package api
 
 import (
 	"errors"
-	"twitter-sim/db"
 	"twitter-sim/model"
 )
 
 // DB is the object which will persist data for the lifetime of the application.
-var DB *db.RAMdb
+var DB RAMdb
+
+func init() {
+	DB.Initialise()
+}
 
 // RegisterUser is the API call for adding users to the application
-func RegisterUser(username string) (*model.User, error) {
+func RegisterUser(username string) (string, error) {
 	// <TODO>
 	// 1. Check if user exists
 	// 2. Construct new user
 	// 2. Save new user to DB
 	// 3. Handle errors
 
-	return nil, errors.New("api error: user could not be registered")
-}
-
-// LookupUser is a utility that performs a lookup of users by their username
-func LookupUser(username string) (*model.User, error) {
-
-	if user := DB.LookupUser(username); user != nil {
-		return user, nil
-	}
-	// <TODO>
-	// 1. Search DB for user with username equal to input string
-	// 2. Return user if found, nil if not.
-	// 3. Handle errors
-
-	return nil, errors.New("api error: user not found")
+	return "", errors.New("api error: user could not be registered")
 }
 
 // Tweet adds a tweet to the list of tweets belonging to a user
-func Tweet(input []byte) (*model.Tweet, error) {
+func Tweet(input []byte) (string, error) {
 
 	// <TODO>
 	// 1. Append to user's tweet list
 	// 2. Save user back to DB
 	// 3. Handle errors
-	return nil, errors.New("api error: tweet failed")
+	return "", errors.New("api error: tweet failed")
 }
 
 // Comment add a comment to the list of comments attached to a tweet

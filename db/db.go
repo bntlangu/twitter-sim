@@ -25,6 +25,7 @@ func (db *RAMdb) AddUser(username string) error {
 		newUser.Model.SetTimestamp()
 		newUser.User = username
 		newUser.Tweets = make(model.TweetList)
+		newUser.Following = []string{}
 
 		// Save the new user
 		db.users[username] = newUser
@@ -34,7 +35,8 @@ func (db *RAMdb) AddUser(username string) error {
 	return errors.New("db error: user already exists")
 }
 
-// LookupUser returns the user object associate with the specified username, nil if not found
+// LookupUser returns the user object associated with the specified username.
+// An error is returned if the user does not exist.
 func (db *RAMdb) LookupUser(username string) (*model.User, error) {
 	user, present := db.users[username]
 
@@ -45,8 +47,6 @@ func (db *RAMdb) LookupUser(username string) (*model.User, error) {
 	return &user, nil
 
 }
-
-// Update a user
 
 // AddTweet inserts a new tweet into a user's tweet list.
 // Returns an error if the user doesn't exist, otherwise the
@@ -97,4 +97,22 @@ func (db *RAMdb) LookupTweet(username string, tweetID string) (*model.Tweet, err
 
 }
 
-// Add a comment to a tweet
+// FollowUser adds a user to the "followed" list of users belonging to the actor
+// Returns an error if the user being folowed doesn't exist or the actor doesn't exist,
+// and return the number of users followed by the actor.
+func (db *RAMdb) FollowUser(actor string, target string) (int, error) {
+	// Check if target user exists
+	usr, err := db.LookupUser(actor)
+	if err != nil {
+		return len(usr.Following), errors.New("db error: user trying to follow does not exist")
+	}
+
+	if _, err := db.LookupUser(target); err != nil {
+		return len(usr.Following), errors.New("db error: user being followed does not exist")
+	}
+
+	usr.Following = append(usr.Following, target)
+
+	return len(usr.Following), nil
+
+}
