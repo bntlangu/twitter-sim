@@ -25,12 +25,12 @@ func TestAddUser(t *testing.T) {
 // Lookup user test
 func TestLookupUser(t *testing.T) {
 	// Test positive case
-	if usr := DB.LookupUser("TestUser"); usr == nil {
-		t.Error("TestUser not found in the DB though expected.")
+	if _, err := DB.LookupUser("TestUser"); err != nil {
+		t.Error(err.Error())
 	}
 
 	// Test negative case
-	if err := DB.LookupUser("WrongUser"); err != nil {
+	if usr, _ := DB.LookupUser("WrongUser"); usr != nil {
 		t.Error("LookupUser should return nil, if the user doesn't exist.")
 	}
 
@@ -43,7 +43,7 @@ func TestAddTweet(t *testing.T) {
 	// Test positive case
 	username := "TestUser"
 	tweet := "This is a test tweet."
-	if id, err := DB.AddTweet(username, tweet); err != nil {
+	if _, err := DB.AddTweet(username, tweet); err != nil {
 		t.Error(err.Error())
 	}
 
@@ -60,16 +60,22 @@ func TestAddTweet(t *testing.T) {
 func TestLookupTweet(t *testing.T) {
 	// Test positive case
 	username := "TestUser"
-	tweet := "This is another test tweet."
-	tweetID, err := DB.AddTweet(username, tweet)
+	tweetText := "This is another test tweet."
+	tweetID, err := DB.AddTweet(username, tweetText)
 
 	if err != nil {
 		t.Error(err.Error())
 	}
 
 	// Test positive case
-	if tweet := DB.LookupTweet(username, tweetID); usr == tweet {
-		t.Error("Test tweet not found in the DB though expected.")
+	tweet, err := DB.LookupTweet(username, tweetID)
+
+	if err != nil {
+		t.Error("Test tweet not found in user's tweet list though expected.")
+	}
+
+	if tweet.ID != tweetID {
+		t.Error("Test tweet IDs don't match.")
 	}
 
 }
